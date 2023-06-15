@@ -6,11 +6,11 @@ import Document, {
   DocumentProps,
   DocumentContext,
 } from 'next/document'
-import createEmotionServer from '@emotion/server/create-instance'
-import { AppType } from 'next/app'
-import createEmotionCache from '../../src/createEmotionCache'
-import { MyAppProps } from './_app'
 import * as React from 'react'
+import { AppType } from 'next/app'
+import { MyAppProps } from './_app'
+import createEmotionCache from '../../src/createEmotionCache'
+import createEmotionServer from '@emotion/server/create-instance'
 
 interface MyDocumentProps extends DocumentProps {
   emotionStyleTags: React.JSX.Element[]
