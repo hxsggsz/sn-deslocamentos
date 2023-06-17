@@ -1,12 +1,10 @@
-import theme, { inter } from '@/theme'
 import Head from 'next/head'
 import type { AppProps } from 'next/app'
+import { Header } from '@/components/header'
 import CssBaseline from '@mui/material/CssBaseline'
-import { ThemeProvider } from '@mui/material/styles'
 import createEmotionCache from '@/createEmotionCache'
 import { CacheProvider, EmotionCache } from '@emotion/react'
 import { ThemeManagerProvider } from '@/context/themeContext'
-import { Header } from '@/components/header'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -27,15 +25,13 @@ export default function App(props: MyAppProps) {
         <link rel="icon" href="/logo.png" />
         <title>SN Deslocamentos</title>
       </Head>
-      <ThemeProvider theme={theme}>
-        <ThemeManagerProvider>
-          <main className={inter.className}>
-            <Header />
-            <CssBaseline enableColorScheme />
-            <Component {...pageProps} />
-          </main>
-        </ThemeManagerProvider>
-      </ThemeProvider>
+      <ThemeManagerProvider>
+        <main>
+          <Header />
+          <CssBaseline enableColorScheme />
+          <Component {...pageProps} />
+        </main>
+      </ThemeManagerProvider>
     </CacheProvider>
   )
 }

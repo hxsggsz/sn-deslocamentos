@@ -19,6 +19,7 @@
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",
+    "axios": "^1.4.0",
     "cookies-next": "^2.1.2",
     "cypress": "^12.14.0",
     "eslint": "8.42.0",

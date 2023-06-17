@@ -52,7 +52,7 @@ export const ThemeManagerProvider = ({ children }: { children: ReactNode }) => {
         palette: {
           mode,
           primary: {
-            main: '#5c4ae3',
+            main: '#dddee2',
           },
           error: {
             main: red.A400,
@@ -61,8 +61,47 @@ export const ThemeManagerProvider = ({ children }: { children: ReactNode }) => {
         typography: {
           fontFamily: inter.style.fontFamily,
         },
+        components: {
+          MuiTextField: {
+            styleOverrides: {
+              root: {
+                input: {
+                  color: 'rgba(255, 255, 255, 0.7)',
+                },
+                border: 'none',
+                borderRadius: '4px',
+                background: '#434459',
+                width: '100%',
+              },
+            },
+          },
+          MuiSelect: {
+            styleOverrides: {
+              icon: {
+                color: 'rgba(255, 255, 255, 0.7)',
+              },
+              select: {
+                border: 'none',
+                background: '#434459',
+                color: 'rgba(255, 255, 255, 0.7)',
+                '.mui-style-z2z2zu-MuiFormLabel-root-MuiInputLabel-root': {
+                  color: 'rgba(255, 255, 255, 0.7)',
+                },
+              },
+            },
+          },
+          MuiButton: {
+            styleOverrides: {
+              root: {
+                borderRadius: '6px',
+                '&.Mui-disabled': {
+                  background: 'rgba(255, 255, 255, 0.4)',
+                },
+              },
+            },
+          },
+        },
       }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [mode],
   )
   return (

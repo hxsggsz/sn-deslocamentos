@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { Box } from '@mui/material'
 import { Sun, Moon } from '@phosphor-icons/react'
 import { useThemes } from '@/context/themeContext'
+import Link from 'next/link'
 
 export const Header = () => {
   const theme = useThemes()
@@ -18,7 +19,9 @@ export const Header = () => {
         padding: '10px',
       }}
     >
-      <Image src="/logo.png" width={40} height={40} alt="logo do projeto" />
+      <Link href="https://secretarianaty.com/" target="_blank">
+        <Image src="/logo.png" width={40} height={40} alt="logo do projeto" />
+      </Link>
 
       <div style={{ cursor: 'pointer' }} onClick={theme.toggleTheme}>
         {theme.mode === 'light' ? (
