@@ -50,12 +50,8 @@ export const Login = () => {
 
       router.replace(`/api/auth/loginClient?id=${correctUser.id}`)
     } catch (err: any) {
-      console.error('[client]: ', err)
-      setError(
-        err.response.data !== ''
-          ? err.response.data
-          : 'Erro no Login, tente novamente!',
-      )
+      console.error('[logIn]: ', err)
+      setError(err.message)
     }
   }
 

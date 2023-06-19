@@ -233,6 +233,7 @@ export const SignUp = ({ states }: IUF) => {
               id="outlined-basic"
               label="Número"
               sx={{
+                width: '130px',
                 label: {
                   color: 'rgba(255, 255, 255, 0.7)',
                 },

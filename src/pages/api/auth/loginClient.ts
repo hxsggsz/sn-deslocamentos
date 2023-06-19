@@ -11,5 +11,5 @@ export default async function GET(req: NextApiRequest, res: NextApiResponse) {
     maxAge: 2592000, // 1 mês
   })
 
-  return res.redirect('/dashboard')
+  return res.redirect('/deslocamento')
 }
