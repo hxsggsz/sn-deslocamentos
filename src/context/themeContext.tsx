@@ -100,6 +100,21 @@ export const ThemeManagerProvider = ({ children }: { children: ReactNode }) => {
               },
             },
           },
+          MuiAutocomplete: {
+            styleOverrides: {
+              root: {
+                label: {
+                  color: 'rgba(255, 255, 255, 0.7)',
+                },
+                button: {
+                  color: 'rgba(255, 255, 255, 0.7)',
+                },
+              },
+              clearIndicator: {
+                color: 'rgba(255, 255, 255, 0.7)',
+              },
+            },
+          },
         },
       }),
     [mode],

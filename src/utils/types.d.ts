@@ -9,3 +9,16 @@ export interface IClient {
   cidade: string
   uf: string
 }
+
+export interface IUF {
+  states: {
+    id: number
+    sigla: string
+    nome: string
+  }[]
+}
+
+export interface ICities {
+  id: number
+  nome: string
+}
