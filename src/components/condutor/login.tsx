@@ -11,18 +11,18 @@ import {
 } from '@mui/material'
 import Link from 'next/link'
 import { api } from '@/utils/api'
-import { IClient } from '@/utils/types'
+import { ICondutor } from '@/utils/types'
 import { useRouter } from 'next/navigation'
 
 export const Login = () => {
   const router = useRouter()
   const [name, setName] = useState('')
   const [error, setError] = useState('')
-  const [document, setDocument] = useState('')
+  const [license, setLicense] = useState('')
   const [typeDocument, setTypeDocument] = useState('')
 
   function handleChange(ev: ChangeEvent<HTMLInputElement>) {
-    setDocument(ev.currentTarget.value.replace(/[^\d]/g, ''))
+    setLicense(ev.currentTarget.value.replace(/[^\d]/g, ''))
   }
 
   function handleSelect(ev: SelectChangeEvent) {
@@ -31,15 +31,17 @@ export const Login = () => {
 
   async function handleSubmit(ev: FormEvent<HTMLFormElement>) {
     ev.preventDefault()
+    console.log(name, license, typeDocument)
     // procura um único cliente que bata com todas as informações
     try {
-      const getUserResponse = await api.get<IClient[]>('/Cliente')
+      const getUserResponse = await api.get<ICondutor[]>('/Condutor')
       const users = getUserResponse.data
 
       const correctUser = users.find((user) => {
         return (
-          user.numeroDocumento === document &&
-          user.tipoDocumento === typeDocument &&
+          user.numeroHabilitacao === license &&
+          // escreveram o nome da coluna do banco de dados errado
+          user.catergoriaHabilitacao === typeDocument &&
           user.nome === name
         )
       })
@@ -106,33 +108,36 @@ export const Login = () => {
               gap: '6px',
             }}
           >
-            <FormControl sx={{ minWidth: 100 }}>
+            <FormControl sx={{ minWidth: 120 }}>
               <InputLabel
                 sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
                 id="type-document"
               >
-                Tipo
+                Categoria
               </InputLabel>
 
               <Select
                 id="type-document"
                 value={typeDocument}
                 onChange={handleSelect}
-                label="Selecione um documento"
-                labelId="Selecione um documento"
+                label="Selecione uma categoria"
+                labelId="Selecione uma categoria"
               >
                 <MenuItem disabled value="">
-                  <em>Selecione um documento</em>
+                  <em>Selecione uma categoria</em>
                 </MenuItem>
-                <MenuItem value="CPF">CPF</MenuItem>
-                <MenuItem value="RG">RG</MenuItem>
+                <MenuItem value="A">A</MenuItem>
+                <MenuItem value="B">B</MenuItem>
+                <MenuItem value="C">C</MenuItem>
+                <MenuItem value="D">D</MenuItem>
+                <MenuItem value="E">E</MenuItem>
               </Select>
             </FormControl>
 
             <FormControl sx={{ width: '100%' }}>
               <TextField
                 fullWidth
-                value={document}
+                value={license}
                 id="outlined-basic"
                 sx={{
                   label: {
@@ -140,7 +145,7 @@ export const Login = () => {
                   },
                 }}
                 onChange={handleChange}
-                label="Documento registrado"
+                label="Habilitação registrada"
               />
             </FormControl>
           </Box>
@@ -154,7 +159,7 @@ export const Login = () => {
           >
             <Button
               disabled={
-                !!(name === '' || typeDocument === '' || document === '')
+                !!(name === '' || typeDocument === '' || license === '')
               }
               type="submit"
               variant="contained"
@@ -165,12 +170,15 @@ export const Login = () => {
         </form>
         <p style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
           Não tem uma conta? crie{' '}
-          <Link style={{ color: 'rgba(255, 255, 255, 0.7)' }} href="">
+          <Link
+            href="/condutor/signup"
+            style={{ color: 'rgba(255, 255, 255, 0.7)' }}
+          >
             aqui
           </Link>
           , ou crie sua conta de{' '}
-          <Link style={{ color: 'rgba(255, 255, 255, 0.7)' }} href="">
-            motorista
+          <Link style={{ color: 'rgba(255, 255, 255, 0.7)' }} href="/">
+            cliente
           </Link>
         </p>
       </Box>

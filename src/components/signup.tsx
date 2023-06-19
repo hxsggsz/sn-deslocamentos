@@ -75,7 +75,7 @@ export const SignUp = ({ states }: IUF) => {
         throw new Error('Não foi possível realizar o cadastro')
       }
 
-      router.replace(`/api/auth/loginClient?id=${newUserId}`)
+      router.replace(`/api/auth/login?id=${newUserId}`)
     } catch (err: any) {
       setError(err.message)
       console.error('[signup]: ', err)

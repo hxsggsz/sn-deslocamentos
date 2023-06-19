@@ -22,3 +22,11 @@ export interface ICities {
   id: number
   nome: string
 }
+
+export interface ICondutor {
+  id: number
+  nome: string
+  numeroHabilitacao: string
+  catergoriaHabilitacao: string
+  vencimentoHabilitacao: string
+}
