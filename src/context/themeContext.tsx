@@ -105,7 +105,8 @@ export const ThemeManagerProvider = ({ children }: { children: ReactNode }) => {
                 },
                 ':disabled': {
                   color: '#fff',
-                  background: '#c7bae2',
+                  background: '#1e0f3f',
+                  opacity: 0.6,
                 },
               },
             },
