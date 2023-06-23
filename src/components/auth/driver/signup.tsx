@@ -13,15 +13,24 @@ import Link from 'next/link'
 import { api } from '@/utils/api'
 import { ICondutor } from '@/utils/types'
 import { useRouter } from 'next/navigation'
+import { useThemes } from '@/context/themeContext'
 
-export const Login = () => {
+export const Signup = () => {
   const router = useRouter()
-  const [name, setName] = useState('')
+  const { mode } = useThemes()
   const [error, setError] = useState('')
   const [license, setLicense] = useState('')
   const [typeDocument, setTypeDocument] = useState('')
+  const [values, setValues] = useState({ name: '', LicenseDate: '' })
 
   function handleChange(ev: ChangeEvent<HTMLInputElement>) {
+    setValues({
+      ...values,
+      [ev.target.name]: ev.target.value,
+    })
+  }
+
+  function handleChangeNumbers(ev: ChangeEvent<HTMLInputElement>) {
     setLicense(ev.currentTarget.value.replace(/[^\d]/g, ''))
   }
 
@@ -31,26 +40,32 @@ export const Login = () => {
 
   async function handleSubmit(ev: FormEvent<HTMLFormElement>) {
     ev.preventDefault()
-    console.log(name, license, typeDocument)
+    const date = new Date(values.LicenseDate)
+    const dateISO = date.toISOString()
+    const body = {
+      nome: values.name,
+      numeroHabilitacao: license,
+      categoriaHabilitacao: typeDocument,
+      vencimentoHabilitacao: dateISO,
+    }
     // procura um único cliente que bata com todas as informações
     try {
-      const getUserResponse = await api.get<ICondutor[]>('/Condutor')
-      const users = getUserResponse.data
+      const clientsResponse = await api.get<ICondutor[]>('/Condutor')
+      const getUser = clientsResponse.data
 
-      const correctUser = users.find((user) => {
-        return (
-          user.numeroHabilitacao === license &&
-          // escreveram o nome da coluna do banco de dados errado
-          user.catergoriaHabilitacao === typeDocument &&
-          user.nome === name
-        )
-      })
+      const checkDocument = getUser.find(
+        (user) => user.numeroHabilitacao === license,
+      )
 
-      if (!correctUser) {
-        throw new Error('usuário não encontrado')
+      if (checkDocument) {
+        throw new Error('Condutor com essa habilitação já registrado')
       }
+      setError('')
 
-      router.replace(`/api/auth/login?id=${correctUser.id}`)
+      const getUserResponse = await api.post<ICondutor[]>('/Condutor', body)
+      const usersId = getUserResponse.data
+
+      router.replace(`/api/auth/login?id=${usersId}`)
     } catch (err: any) {
       console.error('[logIn]: ', err)
       setError(err.message)
@@ -66,15 +81,19 @@ export const Login = () => {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-        backgroundColor: 'palette.background.default',
+        background: `url(/background-${mode}.png)`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
       }}
     >
-      <h1 style={{ textAlign: 'center' }}>Bem vindo ao SN Deslocamentos!</h1>
+      <h1 style={{ textAlign: 'center', color: 'rgba(255, 255, 255, 0.7)' }}>
+        Bem vindo ao SN Deslocamentos!
+      </h1>
       <Box
         sx={{
-          background: '#2f2644',
           padding: '20px',
           borderRadius: '10px',
+          bgcolor: 'action.disabledBackground',
         }}
       >
         <h2 style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
@@ -89,15 +108,11 @@ export const Login = () => {
           }}
         >
           <TextField
-            value={name}
-            onChange={(ev) => setName(ev.currentTarget.value)}
+            name="name"
             id="outlined-basic"
+            value={values.name}
             label="Seu melhor nome"
-            sx={{
-              label: {
-                color: 'rgba(255, 255, 255, 0.7)',
-              },
-            }}
+            onChange={handleChange}
             variant="outlined"
           />
           <Box
@@ -109,12 +124,7 @@ export const Login = () => {
             }}
           >
             <FormControl sx={{ minWidth: 120 }}>
-              <InputLabel
-                sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                id="type-document"
-              >
-                Categoria
-              </InputLabel>
+              <InputLabel id="type-document">Categoria</InputLabel>
 
               <Select
                 id="type-document"
@@ -139,16 +149,31 @@ export const Login = () => {
                 fullWidth
                 value={license}
                 id="outlined-basic"
-                sx={{
-                  label: {
-                    color: 'rgba(255, 255, 255, 0.7)',
-                  },
-                }}
-                onChange={handleChange}
+                onChange={handleChangeNumbers}
                 label="Habilitação registrada"
               />
             </FormControl>
           </Box>
+
+          <TextField
+            fullWidth
+            type="date"
+            name="LicenseDate"
+            value={values.LicenseDate}
+            id="outlined-basic"
+            sx={{
+              '& .MuiFormHelperText-root': {
+                color: 'rgba(255, 255, 255, 0.7)',
+                width: '100%',
+                margin: 0,
+                paddingTop: '4px',
+                paddingLeft: '14px',
+              },
+            }}
+            onChange={handleChange}
+            helperText="Habilitação registrada"
+          />
+
           {error && <span style={{ color: '#ff1744' }}>{error}</span>}
           <Box
             sx={{
@@ -159,7 +184,7 @@ export const Login = () => {
           >
             <Button
               disabled={
-                !!(name === '' || typeDocument === '' || license === '')
+                !!(values.name === '' || typeDocument === '' || license === '')
               }
               type="submit"
               variant="contained"
@@ -169,9 +194,9 @@ export const Login = () => {
           </Box>
         </form>
         <p style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
-          Não tem uma conta? crie{' '}
+          Já tem uma conta? Entre{' '}
           <Link
-            href="/condutor/signup"
+            href="/driver/login"
             style={{ color: 'rgba(255, 255, 255, 0.7)' }}
           >
             aqui

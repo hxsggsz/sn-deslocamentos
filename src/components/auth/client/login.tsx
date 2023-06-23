@@ -13,9 +13,11 @@ import Link from 'next/link'
 import { api } from '@/utils/api'
 import { IClient } from '@/utils/types'
 import { useRouter } from 'next/navigation'
+import { useThemes } from '@/context/themeContext'
 
 export const Login = () => {
   const router = useRouter()
+  const { mode } = useThemes()
   const [name, setName] = useState('')
   const [error, setError] = useState('')
   const [document, setDocument] = useState('')
@@ -64,15 +66,19 @@ export const Login = () => {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-        backgroundColor: 'palette.background.default',
+        background: `url(/background-${mode}.png)`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
       }}
     >
-      <h1 style={{ textAlign: 'center' }}>Bem vindo ao SN Deslocamentos!</h1>
+      <h1 style={{ textAlign: 'center', color: 'rgba(255, 255, 255, 0.7)' }}>
+        Bem vindo ao SN Deslocamentos!
+      </h1>
       <Box
         sx={{
-          background: '#2f2644',
           padding: '20px',
           borderRadius: '10px',
+          bgcolor: 'action.disabledBackground',
         }}
       >
         <h2 style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
@@ -91,11 +97,6 @@ export const Login = () => {
             onChange={(ev) => setName(ev.currentTarget.value)}
             id="outlined-basic"
             label="Seu melhor nome"
-            sx={{
-              label: {
-                color: 'rgba(255, 255, 255, 0.7)',
-              },
-            }}
             variant="outlined"
           />
           <Box
@@ -107,12 +108,7 @@ export const Login = () => {
             }}
           >
             <FormControl sx={{ minWidth: 100 }}>
-              <InputLabel
-                sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                id="type-document"
-              >
-                Tipo
-              </InputLabel>
+              <InputLabel id="type-document">Tipo</InputLabel>
 
               <Select
                 id="type-document"
@@ -134,11 +130,6 @@ export const Login = () => {
                 fullWidth
                 value={document}
                 id="outlined-basic"
-                sx={{
-                  label: {
-                    color: 'rgba(255, 255, 255, 0.7)',
-                  },
-                }}
                 onChange={handleChange}
                 label="Documento registrado"
               />
@@ -165,11 +156,14 @@ export const Login = () => {
         </form>
         <p style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
           Não tem uma conta? crie{' '}
-          <Link style={{ color: 'rgba(255, 255, 255, 0.7)' }} href="">
+          <Link style={{ color: 'rgba(255, 255, 255, 0.7)' }} href="/signup">
             aqui
           </Link>
           , ou crie sua conta de{' '}
-          <Link style={{ color: 'rgba(255, 255, 255, 0.7)' }} href="">
+          <Link
+            href="/driver/signup"
+            style={{ color: 'rgba(255, 255, 255, 0.7)' }}
+          >
             motorista
           </Link>
         </p>

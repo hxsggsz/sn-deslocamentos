@@ -1,5 +1,3 @@
-import { ChangeEvent, FormEvent, useState } from 'react'
-import { SelectChangeEvent } from '@mui/material/Select'
 import {
   Box,
   Select,
@@ -13,9 +11,13 @@ import Link from 'next/link'
 import { api } from '@/utils/api'
 import { ICondutor } from '@/utils/types'
 import { useRouter } from 'next/navigation'
+import { useThemes } from '@/context/themeContext'
+import { SelectChangeEvent } from '@mui/material/Select'
+import { ChangeEvent, FormEvent, useState } from 'react'
 
-export const Signup = () => {
+export const Login = () => {
   const router = useRouter()
+  const { mode } = useThemes()
   const [name, setName] = useState('')
   const [error, setError] = useState('')
   const [license, setLicense] = useState('')
@@ -66,15 +68,19 @@ export const Signup = () => {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-        backgroundColor: 'palette.background.default',
+        background: `url(/background-${mode}.png)`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
       }}
     >
-      <h1 style={{ textAlign: 'center' }}>Bem vindo ao SN Deslocamentos!</h1>
+      <h1 style={{ textAlign: 'center', color: 'rgba(255, 255, 255, 0.7)' }}>
+        Bem vindo ao SN Deslocamentos!
+      </h1>
       <Box
         sx={{
-          background: '#2f2644',
           padding: '20px',
           borderRadius: '10px',
+          bgcolor: 'action.disabledBackground',
         }}
       >
         <h2 style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
@@ -93,11 +99,6 @@ export const Signup = () => {
             onChange={(ev) => setName(ev.currentTarget.value)}
             id="outlined-basic"
             label="Seu melhor nome"
-            sx={{
-              label: {
-                color: 'rgba(255, 255, 255, 0.7)',
-              },
-            }}
             variant="outlined"
           />
           <Box
@@ -109,12 +110,7 @@ export const Signup = () => {
             }}
           >
             <FormControl sx={{ minWidth: 120 }}>
-              <InputLabel
-                sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                id="type-document"
-              >
-                Categoria
-              </InputLabel>
+              <InputLabel id="type-document">Categoria</InputLabel>
 
               <Select
                 id="type-document"
@@ -139,11 +135,6 @@ export const Signup = () => {
                 fullWidth
                 value={license}
                 id="outlined-basic"
-                sx={{
-                  label: {
-                    color: 'rgba(255, 255, 255, 0.7)',
-                  },
-                }}
                 onChange={handleChange}
                 label="Habilitação registrada"
               />
@@ -171,7 +162,7 @@ export const Signup = () => {
         <p style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
           Não tem uma conta? crie{' '}
           <Link
-            href="/condutor/signup"
+            href="/driver/signup"
             style={{ color: 'rgba(255, 255, 255, 0.7)' }}
           >
             aqui

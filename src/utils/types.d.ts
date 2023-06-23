@@ -30,3 +30,11 @@ export interface ICondutor {
   catergoriaHabilitacao: string
   vencimentoHabilitacao: string
 }
+
+export interface IVehicles {
+  id: number
+  placa: string
+  marcaModelo: string
+  anoFabricacao: number
+  kmAtual: number
+}

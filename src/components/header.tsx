@@ -14,6 +14,8 @@ export const Header = () => {
         left: 0,
         width: '100%',
         display: 'flex',
+        borderBottom: 1,
+        borderColor: 'divider',
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '10px',

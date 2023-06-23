@@ -65,12 +65,18 @@ export const ThemeManagerProvider = ({ children }: { children: ReactNode }) => {
           MuiTextField: {
             styleOverrides: {
               root: {
-                input: {
-                  color: 'rgba(255, 255, 255, 0.7)',
+                label: {
+                  color: 'rgba(0, 0, 0, 0.6)',
+                  bgcolor: 'rgba(255, 255, 255, 0.7)',
                 },
-                border: 'none',
+                input: {
+                  color: '#000',
+                },
+                '& :focus': {
+                  background: '#fff',
+                },
                 borderRadius: '4px',
-                background: '#434459',
+                background: '#f5f3f3',
                 width: '100%',
               },
             },
@@ -78,15 +84,12 @@ export const ThemeManagerProvider = ({ children }: { children: ReactNode }) => {
           MuiSelect: {
             styleOverrides: {
               icon: {
-                color: 'rgba(255, 255, 255, 0.7)',
+                color: 'rgba(0, 0, 0, 0.6)',
               },
               select: {
                 border: 'none',
-                background: '#434459',
-                color: 'rgba(255, 255, 255, 0.7)',
-                '.mui-style-z2z2zu-MuiFormLabel-root-MuiInputLabel-root': {
-                  color: 'rgba(255, 255, 255, 0.7)',
-                },
+                background: '#f5f3f3',
+                color: 'rgba(0, 0, 0, 0.6)',
               },
             },
           },
@@ -94,9 +97,23 @@ export const ThemeManagerProvider = ({ children }: { children: ReactNode }) => {
             styleOverrides: {
               root: {
                 borderRadius: '6px',
-                '&.Mui-disabled': {
-                  background: 'rgba(255, 255, 255, 0.4)',
+                background: '#7253b6',
+                color: '#fff',
+                ':hover': {
+                  background: '#d6d6d6',
+                  color: '#7253b6',
                 },
+                ':disabled': {
+                  color: '#fff',
+                  background: '#c7bae2',
+                },
+              },
+            },
+          },
+          MuiInputLabel: {
+            styleOverrides: {
+              root: {
+                color: 'rgba(0, 0, 0, 0.6)',
               },
             },
           },
@@ -104,14 +121,29 @@ export const ThemeManagerProvider = ({ children }: { children: ReactNode }) => {
             styleOverrides: {
               root: {
                 label: {
-                  color: 'rgba(255, 255, 255, 0.7)',
+                  color: 'rgba(0, 0, 0, 0.6)',
                 },
                 button: {
-                  color: 'rgba(255, 255, 255, 0.7)',
+                  color: 'rgba(0, 0, 0, 0.6)',
                 },
               },
               clearIndicator: {
-                color: 'rgba(255, 255, 255, 0.7)',
+                color: 'rgba(0, 0, 0, 0.6)',
+              },
+            },
+          },
+          MuiTabs: {
+            styleOverrides: {
+              root: {
+                '& .mui-style-1o1mk71-MuiTabs-indicator': {
+                  backgroundColor: '#7253b6',
+                },
+                '& .Mui-selected': {
+                  color: '#434459',
+                },
+                '& .MuiTabs-indicator': {
+                  color: '#434459',
+                },
               },
             },
           },

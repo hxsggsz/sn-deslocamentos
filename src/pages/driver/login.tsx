@@ -1,4 +1,4 @@
-import { Login } from '@/components/condutor/login'
+import { Login } from '@/components/auth/driver/login'
 
 export default function LogIn() {
   return <Login />

@@ -10,16 +10,18 @@ import {
   SelectChangeEvent,
 } from '@mui/material'
 import Link from 'next/link'
+import { api } from '@/utils/api'
 import { IClient, IUF } from '@/utils/types'
 import { useRouter } from 'next/navigation'
 import { useCities } from '@/hooks/useCities'
 import { useSignUp } from '@/hooks/useSignUp'
 import { FormEvent, useMemo, useState } from 'react'
-import { api } from '@/utils/api'
+import { useThemes } from '@/context/themeContext'
 
 export const SignUp = ({ states }: IUF) => {
   const sign = useSignUp()
   const router = useRouter()
+  const { mode } = useThemes()
   const [uf, setUf] = useState('')
   const [city, setCity] = useState('')
   const [error, setError] = useState('')
@@ -91,15 +93,19 @@ export const SignUp = ({ states }: IUF) => {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-        backgroundColor: 'palette.background.default',
+        background: `url(/background-${mode}.png)`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center center',
       }}
     >
-      <h1 style={{ textAlign: 'center' }}>Bem vindo ao SN Deslocamentos!</h1>
+      <h1 style={{ textAlign: 'center', color: 'rgba(255, 255, 255, 0.7)' }}>
+        Bem vindo ao SN Deslocamentos!
+      </h1>
       <Box
         sx={{
-          background: '#2f2644',
           padding: '20px',
           borderRadius: '10px',
+          bgcolor: 'action.disabledBackground',
         }}
       >
         <h2 style={{ color: 'rgba(255, 255, 255, 0.7)', textAlign: 'center' }}>
@@ -119,11 +125,6 @@ export const SignUp = ({ states }: IUF) => {
             onChange={sign.handleChange}
             id="outlined-basic"
             label="Seu melhor nome"
-            sx={{
-              label: {
-                color: 'rgba(255, 255, 255, 0.7)',
-              },
-            }}
             variant="outlined"
           />
           <Box
@@ -135,12 +136,7 @@ export const SignUp = ({ states }: IUF) => {
             }}
           >
             <FormControl sx={{ minWidth: 100 }}>
-              <InputLabel
-                sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
-                id="type-document"
-              >
-                Tipo
-              </InputLabel>
+              <InputLabel id="type-document">Tipo</InputLabel>
 
               <Select
                 id="type-document"
@@ -162,15 +158,10 @@ export const SignUp = ({ states }: IUF) => {
               <TextField
                 fullWidth
                 name="document"
-                value={sign.valueNumbers.document}
                 id="outlined-basic"
-                sx={{
-                  label: {
-                    color: 'rgba(255, 255, 255, 0.7)',
-                  },
-                }}
-                onChange={sign.handleChangeNumbers}
                 label="Documento cadastrado"
+                value={sign.valueNumbers.document}
+                onChange={sign.handleChangeNumbers}
               />
             </FormControl>
           </Box>
@@ -234,9 +225,6 @@ export const SignUp = ({ states }: IUF) => {
               label="Número"
               sx={{
                 width: '130px',
-                label: {
-                  color: 'rgba(255, 255, 255, 0.7)',
-                },
               }}
               variant="outlined"
             />
@@ -246,11 +234,6 @@ export const SignUp = ({ states }: IUF) => {
               onChange={sign.handleChange}
               id="outlined-basic"
               label="Endereço"
-              sx={{
-                label: {
-                  color: 'rgba(255, 255, 255, 0.7)',
-                },
-              }}
               variant="outlined"
             />
           </Box>
@@ -261,11 +244,6 @@ export const SignUp = ({ states }: IUF) => {
             onChange={sign.handleChange}
             id="outlined-basic"
             label="Bairro"
-            sx={{
-              label: {
-                color: 'rgba(255, 255, 255, 0.7)',
-              },
-            }}
             variant="outlined"
           />
 
@@ -303,7 +281,10 @@ export const SignUp = ({ states }: IUF) => {
             aqui
           </Link>
           , ou crie sua conta de{' '}
-          <Link style={{ color: 'rgba(255, 255, 255, 0.7)' }} href="">
+          <Link
+            href="/driver/signup"
+            style={{ color: 'rgba(255, 255, 255, 0.7)' }}
+          >
             motorista
           </Link>
         </p>
