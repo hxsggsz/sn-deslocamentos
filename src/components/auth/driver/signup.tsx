@@ -8,6 +8,7 @@ import {
   FormControl,
   TextField,
   Button,
+  CircularProgress,
 } from '@mui/material'
 import Link from 'next/link'
 import { api } from '@/utils/api'
@@ -20,6 +21,7 @@ export const Signup = () => {
   const { mode } = useThemes()
   const [error, setError] = useState('')
   const [license, setLicense] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [typeDocument, setTypeDocument] = useState('')
   const [values, setValues] = useState({ name: '', LicenseDate: '' })
 
@@ -50,6 +52,7 @@ export const Signup = () => {
     }
     // procura um único cliente que bata com todas as informações
     try {
+      setIsLoading(true)
       const clientsResponse = await api.get<ICondutor[]>('/Condutor')
       const getUser = clientsResponse.data
 
@@ -69,6 +72,8 @@ export const Signup = () => {
     } catch (err: any) {
       console.error('[logIn]: ', err)
       setError(err.message)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -189,7 +194,7 @@ export const Signup = () => {
               type="submit"
               variant="contained"
             >
-              Enviar
+              {isLoading ? <CircularProgress size="1.5rem" /> : 'Enviar'}
             </Button>
           </Box>
         </form>

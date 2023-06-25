@@ -8,6 +8,7 @@ import {
   Button,
   Autocomplete,
   SelectChangeEvent,
+  CircularProgress,
 } from '@mui/material'
 import Link from 'next/link'
 import { api } from '@/utils/api'
@@ -26,6 +27,7 @@ export const SignUp = ({ states }: IUF) => {
   const [city, setCity] = useState('')
   const [error, setError] = useState('')
   const { data: allCities } = useCities(uf)
+  const [isLoading, setIsLoading] = useState(false)
   const [typeDocument, setTypeDocument] = useState('')
 
   const stateAbbreviation = useMemo(() => {
@@ -59,6 +61,7 @@ export const SignUp = ({ states }: IUF) => {
     }
 
     try {
+      setIsLoading(true)
       const clientsResponse = await api.get<IClient[]>('/Cliente')
       const getUser = clientsResponse.data
 
@@ -81,6 +84,8 @@ export const SignUp = ({ states }: IUF) => {
     } catch (err: any) {
       setError(err.message)
       console.error('[signup]: ', err)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -271,7 +276,7 @@ export const SignUp = ({ states }: IUF) => {
               type="submit"
               variant="contained"
             >
-              Enviar
+              {isLoading ? <CircularProgress size="1.5rem" /> : 'Enviar'}
             </Button>
           </Box>
         </form>
