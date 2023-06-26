@@ -98,7 +98,7 @@ export const SignUp = ({ states }: IUF) => {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-        background: `url(/background-${mode}.png)`,
+        background: `url(/background-${mode ? 'dark' : 'light'}.png)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
       }}

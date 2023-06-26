@@ -86,7 +86,7 @@ export const Signup = () => {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-        background: `url(/background-${mode}.png)`,
+        background: `url(/background-${mode ? 'dark' : 'light'}.png)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
       }}
@@ -187,6 +187,7 @@ export const Signup = () => {
               width: '100%',
             }}
           >
+            {/* adicionar useLocalstorage hook pro tema */}
             <Button
               disabled={
                 !!(values.name === '' || typeDocument === '' || license === '')
