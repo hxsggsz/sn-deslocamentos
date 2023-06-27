@@ -7,7 +7,7 @@ export const SelectVehicle = ({
   setVehicle,
 }: {
   vehicles: IVehicles[]
-  setVehicle: (id: number, kmInicial: number) => void
+  setVehicle: (id: number, kmAtual: number) => void
 }) => {
   return (
     <Box
@@ -15,14 +15,15 @@ export const SelectVehicle = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      sx={{ display: 'grid', placeItems: 'center', flexGrow: 1 }}
+      sx={{ display: 'grid', width: '100%', placeItems: 'center', flexGrow: 1 }}
     >
       <h2>Selecione um veículo</h2>
       <Grid
         container
-        rowSpacing={1}
+        rowSpacing={2}
         justifyContent="center"
-        spacing={{ xs: 2, md: 3 }}
+        alignItems="center"
+        spacing={{ xs: 4, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
         {vehicles.map((vehicle) => (
@@ -33,10 +34,13 @@ export const SelectVehicle = ({
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setVehicle(vehicle.id, vehicle.kmAtual)}
-              sx={{ padding: '4px 6px', cursor: 'pointer' }}
+              sx={{
+                padding: '12px 22px',
+                cursor: 'pointer',
+              }}
             >
-              <Typography>Modelo: {vehicle.marcaModelo}</Typography>
-              <Typography>Ano: {vehicle.anoFabricacao}</Typography>
+              <Typography noWrap>Modelo: {vehicle.marcaModelo}</Typography>
+              <Typography noWrap>Ano: {vehicle.anoFabricacao}</Typography>
             </Paper>
           </Grid>
         ))}

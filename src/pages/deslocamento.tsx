@@ -10,25 +10,25 @@ import { useRouter } from 'next/router'
 import { IDrivers } from '../components/deslocamento/SelectDriver'
 
 interface IDeslocamento {
-  user: IClient
+  // user: IClient
   userId: number
   drivers: IDrivers[]
   vehicles: IVehicles[]
 }
 
-const tabs = ['Novo deslocamento', 'histórico de deslocamentos']
+const tabs = ['Deslocamento', 'Histórico']
 
 export default function Deslocamento({
-  user,
+  // user,
   userId,
   drivers,
   vehicles,
 }: IDeslocamento) {
   const router = useRouter()
   const [value, setValue] = useState(0)
-  if (!userId) {
-    router.push('/')
-  }
+  // if (!userId) {
+  //   router.push('/')
+  // }
 
   return (
     <Box
@@ -41,11 +41,12 @@ export default function Deslocamento({
     >
       <h1>
         bem vindo,{' '}
-        <span style={{ color: '#7253b6', fontWeight: 700 }}>{user.nome}</span>
+        {/* <span style={{ color: '#7253b6', fontWeight: 700 }}>{user.nome}</span> */}
       </h1>
       <Navbar tabs={tabs} value={value} setValue={setValue} />
       <DeslocamentoForm
         value={value}
+        userId={userId}
         vehicles={vehicles}
         allDrivers={drivers}
       />
@@ -64,19 +65,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     console.error('[user]: ', error)
     deleteCookie('token', { req, res })
   }
-
-  const DriversResponse = await api.get('/Condutor')
-  const drivers = DriversResponse.data
-
-  const VehiclesResponse = await api.get('/Veiculo')
-  const vehicles = VehiclesResponse.data
+  const [DriversResponse, VehiclesResponse] = await Promise.all([
+    api.get('/Condutor'),
+    api.get('/Veiculo'),
+  ])
 
   return {
     props: {
-      user,
+      // user,
       userId,
-      drivers,
-      vehicles,
+      drivers: DriversResponse.data,
+      vehicles: VehiclesResponse.data,
     },
   }
 }

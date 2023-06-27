@@ -22,25 +22,32 @@ export const SelectDriver = ({
     <h2>Selecione um motorista</h2>
     <Grid
       container
-      rowSpacing={1}
       justifyContent="center"
-      spacing={{ xs: 2, md: 3 }}
+      rowSpacing={2}
+      spacing={{ xs: 4, md: 3 }}
       columns={{ xs: 4, sm: 8, md: 12 }}
     >
-      {allDrivers.map((driver) => (
-        <Grid item xs={3} sm={4} md={4} key={driver.id}>
-          <Paper
-            variant="outlined"
-            component={motion.div}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={() => setDriverId(driver.id)}
-            sx={{ padding: '4px 6px', cursor: 'pointer' }}
-          >
-            <Typography>{driver.nome}</Typography>
-          </Paper>
-        </Grid>
-      ))}
+      {allDrivers.length !== 0 ? (
+        allDrivers.map((driver) => (
+          <Grid item xs={3} sm={4} md={4} key={driver.id}>
+            <Paper
+              variant="outlined"
+              component={motion.div}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setDriverId(driver.id)}
+              sx={{
+                padding: '12px 22px',
+                cursor: 'pointer',
+              }}
+            >
+              <Typography>{driver.nome}</Typography>
+            </Paper>
+          </Grid>
+        ))
+      ) : (
+        <Typography>Nenhum motorista disponivel no momento</Typography>
+      )}
     </Grid>
   </Box>
 )
