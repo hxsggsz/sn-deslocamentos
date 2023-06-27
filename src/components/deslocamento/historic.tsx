@@ -2,6 +2,8 @@ import { motion } from 'framer-motion'
 import { TabPanel } from './navbar/tabPanel'
 import { IDeslocamentos } from '@/utils/types'
 import { Box, Paper, Typography } from '@mui/material'
+import { ArrowClockwise } from '@phosphor-icons/react'
+import { useRouter } from 'next/navigation'
 
 interface IHistoric {
   value: number
@@ -9,6 +11,7 @@ interface IHistoric {
 }
 
 export const Historic = ({ value, deslocamentos }: IHistoric) => {
+  const router = useRouter()
   const formatedDate = new Intl.DateTimeFormat('pt-BR', {
     year: 'numeric',
     day: 'numeric',
@@ -16,9 +19,27 @@ export const Historic = ({ value, deslocamentos }: IHistoric) => {
   })
   return (
     <TabPanel index={1} value={value}>
+      <Typography
+        variant="h3"
+        align="center"
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '6px',
+          fontWeight: 500,
+        }}
+      >
+        Histórico
+        <ArrowClockwise
+          size={34}
+          weight="bold"
+          cursor="pointer"
+          onClick={router.refresh}
+        />
+      </Typography>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {deslocamentos.length === 0 ? (
-          <h2>Nenhum deslocamento realizado ainda :(</h2>
+          <Typography>Nenhum deslocamento realizado ainda :(</Typography>
         ) : (
           deslocamentos.map((deslocamento) => (
             <Paper

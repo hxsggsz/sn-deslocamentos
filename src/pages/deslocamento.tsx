@@ -3,7 +3,7 @@ import { Navbar } from '@/components/deslocamento/navbar'
 import { deleteCookie, getCookie } from 'cookies-next'
 import { api } from '@/utils/api'
 import { IClient, IDeslocamentos, IVehicles } from '@/utils/types'
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
 import { DeslocamentoForm } from '@/components/deslocamento/deslocamentoForm'
 import { useRouter } from 'next/router'
@@ -42,10 +42,10 @@ export default function Deslocamento({
         width: '100%',
       }}
     >
-      <h1>
+      <Typography variant="h2" sx={{ fontWeight: 500 }}>
         bem vindo,{' '}
-        {/* <span style={{ color: '#7253b6', fontWeight: 700 }}>{user.nome}</span> */}
-      </h1>
+        <span style={{ color: '#7253b6', fontWeight: 700 }}>{user.nome}</span>
+      </Typography>
       <Navbar tabs={tabs} value={value} setValue={setValue} />
       <DeslocamentoForm
         value={value}
