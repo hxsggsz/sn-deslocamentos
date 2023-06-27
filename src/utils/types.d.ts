@@ -38,3 +38,15 @@ export interface IVehicles {
   anoFabricacao: number
   kmAtual: number
 }
+
+export interface IDeslocamentos {
+  id: number
+  kmInicial: number
+  inicioDeslocamento: string
+  checkList: string
+  motivo: string
+  observacao: string
+  idCondutor: number
+  idVeiculo: number
+  idCliente: number
+}

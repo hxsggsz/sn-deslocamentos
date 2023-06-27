@@ -2,33 +2,36 @@ import { GetServerSideProps } from 'next/types'
 import { Navbar } from '@/components/deslocamento/navbar'
 import { deleteCookie, getCookie } from 'cookies-next'
 import { api } from '@/utils/api'
-import { IClient, IVehicles } from '@/utils/types'
+import { IClient, IDeslocamentos, IVehicles } from '@/utils/types'
 import { Box } from '@mui/material'
 import { useState } from 'react'
 import { DeslocamentoForm } from '@/components/deslocamento/deslocamentoForm'
 import { useRouter } from 'next/router'
 import { IDrivers } from '../components/deslocamento/SelectDriver'
+import { Historic } from '@/components/deslocamento/historic'
 
 interface IDeslocamento {
-  // user: IClient
+  user: IClient
   userId: number
   drivers: IDrivers[]
   vehicles: IVehicles[]
+  deslocamentos: IDeslocamentos[]
 }
 
 const tabs = ['Deslocamento', 'Histórico']
 
 export default function Deslocamento({
-  // user,
+  user,
   userId,
   drivers,
   vehicles,
+  deslocamentos,
 }: IDeslocamento) {
   const router = useRouter()
   const [value, setValue] = useState(0)
-  // if (!userId) {
-  //   router.push('/')
-  // }
+  if (!userId) {
+    router.push('/')
+  }
 
   return (
     <Box
@@ -50,6 +53,7 @@ export default function Deslocamento({
         vehicles={vehicles}
         allDrivers={drivers}
       />
+      <Historic value={value} deslocamentos={deslocamentos} />
     </Box>
   )
 }
@@ -65,17 +69,26 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     console.error('[user]: ', error)
     deleteCookie('token', { req, res })
   }
-  const [DriversResponse, VehiclesResponse] = await Promise.all([
-    api.get('/Condutor'),
-    api.get('/Veiculo'),
-  ])
+  const [DriversResponse, VehiclesResponse, DeslocamentoResponse] =
+    await Promise.all([
+      api.get('/Condutor'),
+      api.get('/Veiculo'),
+      api.get<IDeslocamentos[]>('Deslocamento'),
+    ])
+
+  const allRuns = DeslocamentoResponse.data
+  // todo: filtrar todas os deslocamentos com checklist diferente de "pendente"
+  const deslocamentos = allRuns.filter(
+    (runs) => runs.idCliente === Number(userId),
+  )
 
   return {
     props: {
-      // user,
+      user,
       userId,
       drivers: DriversResponse.data,
       vehicles: VehiclesResponse.data,
+      deslocamentos,
     },
   }
 }

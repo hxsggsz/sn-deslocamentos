@@ -46,7 +46,7 @@ export const ThemeManagerProvider = ({ children }: { children: ReactNode }) => {
         palette: {
           mode: mode ? 'dark' : 'light',
           primary: {
-            main: '#dddee2',
+            main: '#7253b6',
           },
           error: {
             main: red.A400,
@@ -134,10 +134,10 @@ export const ThemeManagerProvider = ({ children }: { children: ReactNode }) => {
                   backgroundColor: '#7253b6',
                 },
                 '& .Mui-selected': {
-                  color: '#434459',
+                  color: '#373841',
                 },
                 '& .MuiTabs-indicator': {
-                  color: '#434459',
+                  color: '#373841',
                 },
               },
             },

@@ -55,7 +55,7 @@ export const Login = () => {
         throw new Error('usuário não encontrado')
       }
 
-      router.replace(`/api/auth/login?id=${correctUser.id}`)
+      router.replace(`/api/auth/driver/login?id=${correctUser.id}`)
     } catch (err: any) {
       console.error('[logIn]: ', err)
       setError(err.message)

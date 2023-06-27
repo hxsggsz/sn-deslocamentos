@@ -68,7 +68,7 @@ export const Signup = () => {
       const getUserResponse = await api.post<ICondutor[]>('/Condutor', body)
       const usersId = getUserResponse.data
 
-      router.replace(`/api/auth/login?id=${usersId}`)
+      router.replace(`/api/auth/driver/login?id=${usersId}`)
     } catch (err: any) {
       console.error('[logIn]: ', err)
       setError(err.message)
