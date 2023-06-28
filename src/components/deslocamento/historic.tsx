@@ -1,9 +1,7 @@
 import { motion } from 'framer-motion'
-import { useRouter } from 'next/navigation'
 import { TabPanel } from '../navbar/tabPanel'
 import { IDeslocamentos } from '@/utils/types'
 import { Box, Paper, Typography } from '@mui/material'
-import { ArrowClockwise } from '@phosphor-icons/react'
 
 interface IHistoric {
   value: number
@@ -11,7 +9,6 @@ interface IHistoric {
 }
 
 export const Historic = ({ value, deslocamentos }: IHistoric) => {
-  const router = useRouter()
   const formatedDate = new Intl.DateTimeFormat('pt-BR', {
     year: 'numeric',
     day: 'numeric',
@@ -30,12 +27,6 @@ export const Historic = ({ value, deslocamentos }: IHistoric) => {
         }}
       >
         Histórico
-        <ArrowClockwise
-          size={34}
-          weight="bold"
-          cursor="pointer"
-          onClick={router.refresh}
-        />
       </Typography>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {deslocamentos.length === 0 ? (

@@ -1,22 +1,25 @@
 import { useState } from 'react'
 import { api } from '@/utils/api'
-import { IVehicles } from '@/utils/types'
+import { IDeslocamentos, IVehicles } from '@/utils/types'
 import { TabPanel } from '../navbar/tabPanel'
 import { SelectVehicle } from './selectVehicle'
 import { AnimatePresence } from 'framer-motion'
 import { Box, Button, TextField } from '@mui/material'
 import { IDrivers, SelectDriver } from './SelectDriver'
+import { KeyedMutator } from 'swr'
 
 interface IDeslocamentoForm {
   value: number
   userId: number
   vehicles: IVehicles[]
   allDrivers: IDrivers[]
+  mutate: KeyedMutator<IDeslocamentos[]>
 }
 
 export const DeslocamentoForm = ({
   value,
   userId,
+  mutate,
   vehicles,
   allDrivers,
 }: IDeslocamentoForm) => {
@@ -57,6 +60,7 @@ export const DeslocamentoForm = ({
       if (raceRespone.status === 200) {
         setNext((prev) => (prev += 1))
       }
+      mutate()
     } catch (error) {
       console.log('[start race]: ', error)
     }

@@ -22,14 +22,20 @@ export const Header = () => {
       }}
     >
       <Link href="https://secretarianaty.com/" target="_blank">
-        <Image src="/logo.png" width={40} height={40} alt="logo do projeto" />
+        <Image
+          priority
+          width={40}
+          height={40}
+          src="/logo.png"
+          alt="logo do projeto"
+        />
       </Link>
 
       <div style={{ cursor: 'pointer' }} onClick={theme.toggleTheme}>
-        {theme.mode === 'light' ? (
-          <Moon size={30} weight="bold" />
-        ) : (
+        {theme.mode ? (
           <Sun size={30} weight="bold" />
+        ) : (
+          <Moon size={30} weight="bold" />
         )}
       </div>
     </Box>

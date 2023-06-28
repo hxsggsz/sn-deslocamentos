@@ -9,13 +9,15 @@ import { DeslocamentoForm } from '@/components/deslocamento/deslocamentoForm'
 import { useRouter } from 'next/router'
 import { IDrivers } from '../components/deslocamento/SelectDriver'
 import { Historic } from '@/components/deslocamento/historic'
+import useSWR, { SWRConfig } from 'swr'
+import { fetcher } from '@/utils/fetcher'
 
 interface IDeslocamento {
   user: IClient
   userId: number
   drivers: IDrivers[]
   vehicles: IVehicles[]
-  deslocamentos: IDeslocamentos[]
+  fallback: IDeslocamentos[]
 }
 
 const tabs = ['Deslocamento', 'Histórico']
@@ -25,13 +27,26 @@ export default function Deslocamento({
   userId,
   drivers,
   vehicles,
-  deslocamentos,
+  fallback,
 }: IDeslocamento) {
   const router = useRouter()
   const [value, setValue] = useState(0)
+  const { data, mutate } = useSWR<IDeslocamentos[]>(
+    'https://api-deslocamento.herokuapp.com/api/v1/Deslocamento',
+    fetcher,
+  )
+
+  if (!data) {
+    return []
+  }
+
   if (!userId) {
     router.push('/')
   }
+
+  const deslocamentoFilter = data.filter(
+    (des) => des.idCliente === Number(userId),
+  )
 
   return (
     <Box
@@ -50,10 +65,13 @@ export default function Deslocamento({
       <DeslocamentoForm
         value={value}
         userId={userId}
+        mutate={mutate}
         vehicles={vehicles}
         allDrivers={drivers}
       />
-      <Historic value={value} deslocamentos={deslocamentos} />
+      <SWRConfig value={{ fallback }}>
+        <Historic value={value} deslocamentos={deslocamentoFilter} />
+      </SWRConfig>
     </Box>
   )
 }
@@ -88,7 +106,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       userId,
       drivers: DriversResponse.data,
       vehicles: VehiclesResponse.data,
-      deslocamentos,
+      fallback: {
+        'https://api-deslocamento.herokuapp.com/api/v1/Deslocamento':
+          deslocamentos,
+      },
     },
   }
 }
