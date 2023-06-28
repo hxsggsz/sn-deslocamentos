@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { api } from '@/utils/api'
 import useSWR, { SWRConfig } from 'swr'
 import { getCookie } from 'cookies-next'
@@ -9,6 +8,7 @@ import { GetServerSideProps } from 'next/types'
 import { Historic } from '@/components/historic'
 import { DriverModal } from '@/components/driver/modal'
 import { IDeslocamentos, IVehicles } from '@/utils/types'
+import { useState, Dispatch, SetStateAction, useMemo } from 'react'
 import { VehicleCard } from '@/components/driver/vehiclesCard'
 import { VeiculosForm } from '@/components/driver/veiculosForm'
 
@@ -22,13 +22,46 @@ interface IDriver {
 
 export default function Driver({ userId, fallback, deslocamento }: IDriver) {
   const [value, setValue] = useState(0)
+  const [observation, setObservation] = useState('')
   const { data, mutate } = useSWR<IVehicles[]>(
     'https://api-deslocamento.herokuapp.com/api/v1/Veiculo',
     fetcher,
   )
 
+  const { data: desloc, mutate: mutateDesloc } = useSWR<IDeslocamentos[]>(
+    'https://api-deslocamento.herokuapp.com/api/v1/Deslocamento',
+    fetcher,
+    { refreshInterval: 1000 },
+  )
+
+  const isDelosc = useMemo(() => {
+    const newDesloc = desloc?.find(
+      (des) => des.idCondutor === userId && des.observacao === '',
+    )
+
+    console.log(newDesloc)
+    return newDesloc
+  }, [desloc, userId])
+
   if (!data) {
     return []
+  }
+  async function handleFinsh(setIsOpen: Dispatch<SetStateAction<boolean>>) {
+    const date = new Date()
+    const kmFinal = Math.floor(Math.random() * 50 + 1)
+
+    const body = {
+      id: isDelosc!.id,
+      kmFinal: isDelosc!.kmInicial + kmFinal,
+      fimDeslocamento: date.toISOString(),
+      observacao: observation,
+    }
+    await api.put<IDeslocamentos>(
+      `/Deslocamento/${isDelosc!.id}/EncerrarDeslocamento`,
+      body,
+    )
+    mutateDesloc()
+    setIsOpen(false)
   }
 
   return (
@@ -50,7 +83,12 @@ export default function Driver({ userId, fallback, deslocamento }: IDriver) {
         <VehicleCard value={value} vehicles={data} />
       </SWRConfig>
       <Historic value={value} deslocamentos={deslocamento} />
-      <DriverModal />
+      <DriverModal
+        newDesloc={isDelosc}
+        handleFinsh={handleFinsh}
+        observation={observation}
+        setObservation={setObservation}
+      />
     </Box>
   )
 }
