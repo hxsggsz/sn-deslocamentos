@@ -19,6 +19,9 @@ export const Header = () => {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '10px',
+        background:
+          'linear-gradient(135deg,rgba(0, 0, 0, 0), rgba(0, 0, 0, 0))',
+        backdropFilter: 'blur(6px)',
       }}
     >
       <Link href="https://secretarianaty.com/" target="_blank">
