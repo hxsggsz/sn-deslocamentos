@@ -15,6 +15,7 @@ import { DeslocamentoForm } from '@/components/deslocamento/deslocamentoForm'
 interface IDeslocamento {
   user: IClient
   userId: number
+  isDriver: boolean
   drivers: IDrivers[]
   vehicles: IVehicles[]
   fallback: IDeslocamentos[]
@@ -25,6 +26,7 @@ const tabs = ['Deslocamento', 'Histórico']
 export default function Deslocamento({
   user,
   userId,
+  isDriver,
   drivers,
   vehicles,
   fallback,
@@ -39,6 +41,10 @@ export default function Deslocamento({
 
   if (!userId) {
     router.push('/')
+  }
+
+  if (isDriver) {
+    router.push('/driver')
   }
 
   return (
@@ -72,13 +78,19 @@ export default function Deslocamento({
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const userId = getCookie('token', { req, res })
   let user
+  let isDriver = false
   try {
     // os dados estão sendo constantemente apagados por isso o try catch no usuário, se não achar, o usuário é redirecionado
-    const userResponse = await api.get(`/Cliente/${userId}`)
-    user = userResponse.data
+    const { data } = await api.get(`/Cliente/${userId}`)
+    user = data
   } catch (error) {
     console.error('[user]: ', error)
-    deleteCookie('token', { req, res })
+    const { data } = await api.get(`/Condutor/${userId}`)
+    if (!data) {
+      deleteCookie('token', { req, res })
+    }
+    isDriver = true
+    user = data
   }
   const [DriversResponse, VehiclesResponse, DeslocamentoResponse] =
     await Promise.all([
@@ -96,6 +108,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   return {
     props: {
       user,
+      isDriver,
       userId: Number(userId),
       drivers: DriversResponse.data,
       vehicles: VehiclesResponse.data,

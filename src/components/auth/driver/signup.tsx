@@ -164,7 +164,7 @@ export const Signup = () => {
             id="anoFabricacao"
             sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
           >
-            Habilitação registrada
+            Data da habilitação
           </InputLabel>
           <TextField
             fullWidth

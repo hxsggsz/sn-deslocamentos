@@ -82,6 +82,7 @@ export const DeslocamentoForm = ({
             <Box sx={{ display: 'flex', justifyItems: 'end' }}>
               <Button
                 type="submit"
+                variant="contained"
                 disabled={reason === ''}
                 onClick={() => setNext((prev) => (prev += 1))}
               >

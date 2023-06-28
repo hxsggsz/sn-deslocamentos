@@ -127,6 +127,7 @@ export const VeiculosForm = ({
               values.kmAtual === '' ||
               values.marca === ''
             }
+            variant="contained"
             type="submit"
           >
             {isLoading ? <CircularProgress size="1.5rem" /> : 'Enviar'}

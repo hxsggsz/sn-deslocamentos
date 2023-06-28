@@ -1,15 +1,16 @@
-import { Navbar } from '@/components/navbar'
-import { VehicleCard } from '@/components/driver/vehiclesCard'
-import { VeiculosForm } from '@/components/driver/veiculosForm'
-import { Typography, Box } from '@mui/material'
 import { useState } from 'react'
-import { GetServerSideProps } from 'next/types'
-import { getCookie } from 'cookies-next'
 import { api } from '@/utils/api'
 import useSWR, { SWRConfig } from 'swr'
+import { getCookie } from 'cookies-next'
 import { fetcher } from '@/utils/fetcher'
+import { Navbar } from '@/components/navbar'
+import { Typography, Box } from '@mui/material'
+import { GetServerSideProps } from 'next/types'
 import { Historic } from '@/components/historic'
+import { DriverModal } from '@/components/driver/modal'
 import { IDeslocamentos, IVehicles } from '@/utils/types'
+import { VehicleCard } from '@/components/driver/vehiclesCard'
+import { VeiculosForm } from '@/components/driver/veiculosForm'
 
 const tabs = ['Veículos', 'Histórico']
 
@@ -49,6 +50,7 @@ export default function Driver({ userId, fallback, deslocamento }: IDriver) {
         <VehicleCard value={value} vehicles={data} />
       </SWRConfig>
       <Historic value={value} deslocamentos={deslocamento} />
+      <DriverModal />
     </Box>
   )
 }
@@ -70,7 +72,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   )
 
   const deslocamentoFilterDriver = deslocamento.filter(
-    (des) => des.idCondutor === Number(userId),
+    (des) => des.idCondutor === Number(userId), // && checklist !== 'pendete
   )
 
   return {

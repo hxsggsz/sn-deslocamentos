@@ -101,7 +101,7 @@ export const ThemeManagerProvider = ({ children }: { children: ReactNode }) => {
           },
           MuiButton: {
             styleOverrides: {
-              root: {
+              contained: {
                 borderRadius: '6px',
                 background: '#7253b6',
                 color: '#fff',
