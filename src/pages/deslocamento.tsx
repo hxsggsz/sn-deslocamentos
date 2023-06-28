@@ -36,7 +36,7 @@ export default function Deslocamento({
   return (
     <Box
       sx={{
-        paddingTop: '60px',
+        paddingTop: '76px',
         display: 'grid',
         placeItems: 'center',
         width: '100%',

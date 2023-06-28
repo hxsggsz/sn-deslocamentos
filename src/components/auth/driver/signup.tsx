@@ -160,6 +160,12 @@ export const Signup = () => {
             </FormControl>
           </Box>
 
+          <InputLabel
+            id="anoFabricacao"
+            sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
+          >
+            Habilitação registrada
+          </InputLabel>
           <TextField
             fullWidth
             type="date"
@@ -176,7 +182,6 @@ export const Signup = () => {
               },
             }}
             onChange={handleChange}
-            helperText="Habilitação registrada"
           />
 
           {error && <span style={{ color: '#ff1744' }}>{error}</span>}

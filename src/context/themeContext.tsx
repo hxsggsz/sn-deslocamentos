@@ -56,12 +56,27 @@ export const ThemeManagerProvider = ({ children }: { children: ReactNode }) => {
           fontFamily: inter.style.fontFamily,
         },
         components: {
+          MuiPaper: {
+            styleOverrides: {
+              root: {
+                borderRadius: '12px 12px',
+                ': hover': {
+                  borderTop: '8px solid #7253b6',
+                },
+              },
+            },
+          },
           MuiTextField: {
             styleOverrides: {
               root: {
+                borderRadius: '4px',
+                background: '#f5f3f3',
+                width: '100%',
                 label: {
                   color: 'rgba(0, 0, 0, 0.6)',
-                  bgcolor: 'rgba(255, 255, 255, 0.7)',
+                  background: '#f5f3f3',
+                  borderRadius: '4px',
+                  padding: '2px 6px',
                 },
                 input: {
                   color: '#000',
@@ -69,9 +84,6 @@ export const ThemeManagerProvider = ({ children }: { children: ReactNode }) => {
                 '& :focus': {
                   background: '#fff',
                 },
-                borderRadius: '4px',
-                background: '#f5f3f3',
-                width: '100%',
               },
             },
           },
