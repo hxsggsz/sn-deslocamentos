@@ -1,16 +1,16 @@
-import { GetServerSideProps } from 'next/types'
-import { Navbar } from '@/components/navbar'
-import { deleteCookie, getCookie } from 'cookies-next'
-import { api } from '@/utils/api'
-import { IClient, IDeslocamentos, IVehicles } from '@/utils/types'
-import { Box, Typography } from '@mui/material'
+import { SWRConfig } from 'swr'
 import { useState } from 'react'
-import { DeslocamentoForm } from '@/components/deslocamento/deslocamentoForm'
+import { api } from '@/utils/api'
 import { useRouter } from 'next/router'
+import { Navbar } from '@/components/navbar'
+import { GetServerSideProps } from 'next/types'
+import { Box, Typography } from '@mui/material'
+import { Historic } from '@/components/historic'
+import { deleteCookie, getCookie } from 'cookies-next'
+import { useDeslocamento } from '@/hooks/useDeslocamento'
 import { IDrivers } from '../components/deslocamento/SelectDriver'
-import { Historic } from '@/components/deslocamento/historic'
-import useSWR, { SWRConfig } from 'swr'
-import { fetcher } from '@/utils/fetcher'
+import { IClient, IDeslocamentos, IVehicles } from '@/utils/types'
+import { DeslocamentoForm } from '@/components/deslocamento/deslocamentoForm'
 
 interface IDeslocamento {
   user: IClient
@@ -31,10 +31,7 @@ export default function Deslocamento({
 }: IDeslocamento) {
   const router = useRouter()
   const [value, setValue] = useState(0)
-  const { data, mutate } = useSWR<IDeslocamentos[]>(
-    'https://api-deslocamento.herokuapp.com/api/v1/Deslocamento',
-    fetcher,
-  )
+  const { deslocamentoFilterClient, data, mutate } = useDeslocamento(userId)
 
   if (!data) {
     return []
@@ -43,10 +40,6 @@ export default function Deslocamento({
   if (!userId) {
     router.push('/')
   }
-
-  const deslocamentoFilter = data.filter(
-    (des) => des.idCliente === Number(userId),
-  )
 
   return (
     <Box
@@ -70,7 +63,7 @@ export default function Deslocamento({
         allDrivers={drivers}
       />
       <SWRConfig value={{ fallback }}>
-        <Historic value={value} deslocamentos={deslocamentoFilter} />
+        <Historic value={value} deslocamentos={deslocamentoFilterClient!} />
       </SWRConfig>
     </Box>
   )
@@ -103,7 +96,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   return {
     props: {
       user,
-      userId,
+      userId: Number(userId),
       drivers: DriversResponse.data,
       vehicles: VehiclesResponse.data,
       fallback: {

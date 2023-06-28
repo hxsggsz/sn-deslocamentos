@@ -7,21 +7,25 @@ import { GetServerSideProps } from 'next/types'
 import { getCookie } from 'cookies-next'
 import { api } from '@/utils/api'
 import useSWR, { SWRConfig } from 'swr'
-import { IVehicles } from '@/utils/types'
 import { fetcher } from '@/utils/fetcher'
+import { Historic } from '@/components/historic'
+import { IDeslocamentos, IVehicles } from '@/utils/types'
 
 const tabs = ['Veículos', 'Histórico']
 
 interface IDriver {
+  userId: number
   fallback: IVehicles[]
+  deslocamento: IDeslocamentos[]
 }
 
-export default function Driver({ fallback }: IDriver) {
+export default function Driver({ userId, fallback, deslocamento }: IDriver) {
   const [value, setValue] = useState(0)
   const { data, mutate } = useSWR<IVehicles[]>(
     'https://api-deslocamento.herokuapp.com/api/v1/Veiculo',
     fetcher,
   )
+
   if (!data) {
     return []
   }
@@ -44,7 +48,7 @@ export default function Driver({ fallback }: IDriver) {
       <SWRConfig value={{ fallback }}>
         <VehicleCard value={value} vehicles={data} />
       </SWRConfig>
-      {/* <Historic value={value} deslocamentos={deslocamentos} /> */}
+      <Historic value={value} deslocamentos={deslocamento} />
     </Box>
   )
 }
@@ -60,15 +64,23 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   //   console.error('[user]: ', error)
   //   deleteCookie('token', { req, res })
   // }
-  const { data } = await api.get('/Veiculo')
+  const { data: vehicle } = await api.get('/Veiculo')
+  const { data: deslocamento } = await api.get<IDeslocamentos[]>(
+    '/Deslocamento',
+  )
+
+  const deslocamentoFilterDriver = deslocamento.filter(
+    (des) => des.idCondutor === Number(userId),
+  )
 
   return {
     props: {
       // user,
-      userId,
+      userId: Number(userId),
       fallback: {
-        'https://api-deslocamento.herokuapp.com/api/v1/Veiculo': data,
+        'https://api-deslocamento.herokuapp.com/api/v1/Veiculo': vehicle,
       },
+      deslocamento: deslocamentoFilterDriver,
     },
   }
 }

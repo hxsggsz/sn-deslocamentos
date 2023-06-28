@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { TabPanel } from '../navbar/tabPanel'
+import { TabPanel } from './navbar/tabPanel'
 import { IDeslocamentos } from '@/utils/types'
 import { Box, Paper, Typography } from '@mui/material'
 
@@ -16,16 +16,7 @@ export const Historic = ({ value, deslocamentos }: IHistoric) => {
   })
   return (
     <TabPanel index={1} value={value}>
-      <Typography
-        variant="h3"
-        align="center"
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '6px',
-          fontWeight: 500,
-        }}
-      >
+      <Typography variant="h3" align="center">
         Histórico
       </Typography>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
