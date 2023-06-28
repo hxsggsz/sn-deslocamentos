@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next/types'
-import { Navbar } from '@/components/deslocamento/navbar'
+import { Navbar } from '@/components/navbar'
 import { deleteCookie, getCookie } from 'cookies-next'
 import { api } from '@/utils/api'
 import { IClient, IDeslocamentos, IVehicles } from '@/utils/types'

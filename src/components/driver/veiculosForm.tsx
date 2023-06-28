@@ -1,10 +1,17 @@
 import { api } from '@/utils/api'
 import { IVehicles } from '@/utils/types'
+import { TabPanel } from '../navbar/tabPanel'
 import { ChangeEvent, FormEvent, useState } from 'react'
-import { TabPanel } from '../deslocamento/navbar/tabPanel'
 import { Box, Button, CircularProgress, Paper, TextField } from '@mui/material'
+import { KeyedMutator } from 'swr'
 
-export const VeiculosForm = ({ value }: { value: number }) => {
+export const VeiculosForm = ({
+  value,
+  mutate,
+}: {
+  value: number
+  mutate: KeyedMutator<IVehicles[]>
+}) => {
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [values, setValues] = useState({
@@ -49,6 +56,8 @@ export const VeiculosForm = ({ value }: { value: number }) => {
       }
 
       await api.post('/Veiculo', body)
+      mutate()
+      setValues({ placa: '', marca: '', kmAtual: '', anoFabricacao: '' })
       setError('')
     } catch (err: any) {
       console.error(err)

@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import createEmotionCache from '@/createEmotionCache'
 import { CacheProvider, EmotionCache } from '@emotion/react'
 import { ThemeManagerProvider } from '@/context/themeContext'
+import { GlobalStyles } from '@mui/material'
 
 const clientSideEmotionCache = createEmotionCache()
 
@@ -14,6 +15,10 @@ export interface MyAppProps extends AppProps {
 
 export default function App(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
+  const inputGlobalStyles = (
+    <GlobalStyles styles={{ body: { overflowX: 'hidden' } }} />
+  )
+
   return (
     <CacheProvider value={emotionCache}>
       <Head>
@@ -29,6 +34,7 @@ export default function App(props: MyAppProps) {
         <main>
           <Header />
           <CssBaseline enableColorScheme />
+          {inputGlobalStyles}
           <Component {...pageProps} />
         </main>
       </ThemeManagerProvider>

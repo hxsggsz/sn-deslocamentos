@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
-import { TabPanel } from './navbar/tabPanel'
+import { useRouter } from 'next/navigation'
+import { TabPanel } from '../navbar/tabPanel'
 import { IDeslocamentos } from '@/utils/types'
 import { Box, Paper, Typography } from '@mui/material'
 import { ArrowClockwise } from '@phosphor-icons/react'
-import { useRouter } from 'next/navigation'
 
 interface IHistoric {
   value: number
