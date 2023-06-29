@@ -100,7 +100,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     ])
 
   const allRuns = DeslocamentoResponse.data
-  // todo: filtrar todas os deslocamentos com checklist diferente de "pendente"
   const deslocamentos = allRuns.filter(
     (runs) => runs.idCliente === Number(userId),
   )
