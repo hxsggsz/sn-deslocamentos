@@ -1,38 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div id="readme-top" align="center">
+  <a href="https://make-decisions.netlify.app/" target="_blank">
+  <img src="https://secretarianaty.com/wp-content/uploads/2022/10/cropped-WhatsApp-Image-2022-10-13-at-14.18.14-1.png"/>
+</a>
+  
+  
+  
+  <p align="center">
+<a href="#descricao-do-projeto">✏ Descrição do projeto</a>
+&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+<a href="#feito-com">👷🏻‍♂️ Feito com</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+ <a href="#funcionalidades-do-projeto">🔨 Funcionalidades do projeto</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a href="#acesso-ao-projeto>🔍 Como baixar o projeto localmente</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a href="#acesso-ao-projeto">📂 acesso ao projeto</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+    <a href="#autor">👦🏻 Autor</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+</p>
 
-## Getting Started
+<div align="center">
+<img src="http://img.shields.io/static/v1?label=STATUS&message=Concluido&color=GREEN&style=for-the-badge"/>
+</div>
+  
+  <a href="https://make-decisions.netlify.app/" target="_blank">Confira aqui o site no ar!</a> <br>
+  
+<h1 id="descricao-do-projeto"> ✏ Descrição do projeto<h1>
 
-First, run the development server:
+Um chalenge para a empresa Secretaria Naty onde foi feito um website de deslocamento com diversos CRUD's.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+<h1 id="feito-com"> 👷🏻‍♂️ Feito com<h1>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ [![My Skills](https://skillicons.dev/icons?i=react,ts,nextjs,materialui)](https://skillicons.dev)<br>
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+ <h1 id="funcionalidades-do-projeto"> 🔨 Funcionalidades do projeto<h1>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Um website inspirado em aplicativos de transporte, nesse projeto e possível cadastrar um usuário, um condutor e seus veículos e também iniciar e finlizar o deslocamento.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+<h1 id="acesso-ao-projeto"> 📂 Acesso ao projeto<h1>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+você pode utilizar o projeto <a href="https://make-decisions.netlify.app/" target="_blank">aqui</a>
 
-## Learn More
+<h1 id="projeto local">🔍 Como baixar o projeto localmente</h1>
 
-To learn more about Next.js, take a look at the following resources:
+Faça um Fork do repositório
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![image](https://github.com/hxsggsz/sn-deslocamentos/assets/103784814/e14a3edc-dda7-4e5e-b59d-9d89cf89c648)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Clone o novo repositório na sua maquina local utilizando o comando git clone https://github.com/your-username/repository-name.git
 
-## Deploy on Vercel
+![image](https://github.com/hxsggsz/sn-deslocamentos/assets/103784814/2e8d5302-f356-4fd2-a6a0-f4b22b901493)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+BAixe a pasta "node_modules" com o comando "npm install" e pronto, você pode iniciar o site localmente com o comando "npm run dev" e ver o resultado no link "http://localhost:3000"
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<h1 id="autor"> 👦🏻 Autor<h1>
+
+| [<img src="https://avatars.githubusercontent.com/u/103784814?v=4" width=115><br><sub>Victor Hugo</sub>](https://www.linkedin.com/in/hxsggsz/) | 
+| :---:  |
+
+<p align="right"><a href="#readme-top">Volte para o inicio</a></p>
+
+<p align="center">
+.
+<br/>
+.
+<br/>
+.
+<br/>
+.
+<br/>
+<br/>
+with ❤️
+<a href="https://www.linkedin.com/in/hxsggsz/">
+ Victor Hugo
+</a>
+</p>
+</div>
