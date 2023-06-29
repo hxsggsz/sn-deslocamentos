@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { api } from '@/utils/api'
 import { IDeslocamentos, IVehicles } from '@/utils/types'
 import { TabPanel } from '../navbar/tabPanel'
@@ -6,7 +6,8 @@ import { SelectVehicle } from './selectVehicle'
 import { AnimatePresence } from 'framer-motion'
 import { Box, Button, TextField } from '@mui/material'
 import { IDrivers, SelectDriver } from './SelectDriver'
-import { KeyedMutator } from 'swr'
+import useSWR, { KeyedMutator } from 'swr'
+import { fetcher } from '@/utils/fetcher'
 
 interface IDeslocamentoForm {
   value: number
@@ -35,7 +36,9 @@ export const DeslocamentoForm = ({
 
   async function handleVehicle(id: number, kmAtual: number) {
     setVehicle({ id, kmAtual })
-    vehicle.id !== 0 && (await startRace())
+    if (vehicle.id !== 0) {
+      await startRace()
+    }
   }
 
   async function startRace() {
@@ -66,6 +69,21 @@ export const DeslocamentoForm = ({
     }
   }
 
+  const { data } = useSWR<IDeslocamentos[]>(
+    'https://api-deslocamento.herokuapp.com/api/v1/Deslocamento',
+    fetcher,
+    { refreshInterval: 1000 },
+  )
+
+  useEffect(() => {
+    const filteredDeslocamento = data?.find(
+      (desloc) => desloc.idCliente === userId && desloc.observacao !== '',
+    )
+    if (filteredDeslocamento && next === 3) {
+      setNext(0)
+    }
+  }, [data, userId, next])
+
   return (
     <TabPanel index={0} value={value}>
       {/* realiza a animação mesmo depois do componente deixar de existir */}
@@ -95,7 +113,7 @@ export const DeslocamentoForm = ({
         ) : next === 2 ? (
           <SelectVehicle vehicles={vehicles} setVehicle={handleVehicle} />
         ) : (
-          'procurando'
+          <h2>Corrida iniciada!</h2>
         )}
       </AnimatePresence>
     </TabPanel>

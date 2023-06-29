@@ -104,7 +104,7 @@ export const ThemeManagerProvider = ({ children }: { children: ReactNode }) => {
               contained: {
                 borderRadius: '6px',
                 background: '#7253b6',
-                color: '#fff',
+                color: '#d6d6d6',
                 ':hover': {
                   background: '#d6d6d6',
                   color: '#7253b6',

@@ -19,7 +19,10 @@ export const Historic = ({ value, deslocamentos }: IHistoric) => {
       <Typography variant="h3" align="center">
         Histórico
       </Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <Box
+        mt={2}
+        sx={{ display: 'flex', flexDirection: 'column', gap: '12px' }}
+      >
         {deslocamentos.length === 0 ? (
           <Typography>Nenhum deslocamento realizado ainda :(</Typography>
         ) : (
@@ -32,6 +35,8 @@ export const Historic = ({ value, deslocamentos }: IHistoric) => {
               sx={{
                 padding: '12px 22px',
                 userSelect: 'none',
+                width: '90vw',
+                maxWidth: '556px',
               }}
             >
               <Typography>Motivo: {deslocamento.motivo}</Typography>
@@ -40,8 +45,7 @@ export const Historic = ({ value, deslocamentos }: IHistoric) => {
                 {formatedDate.format(new Date(deslocamento.inicioDeslocamento))}
               </Typography>
               <Typography>
-                Status: {deslocamento.checkList}{' '}
-                {deslocamento.checkList === 'concluído' ? '🟢' : '🔴'}
+                Status: {deslocamento.observacao !== '' ? '🟢' : '🔴'}
               </Typography>
             </Paper>
           ))

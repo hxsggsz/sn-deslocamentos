@@ -44,7 +44,7 @@ export default function Driver({
     fetcher,
     { refreshInterval: 1000 },
   )
-console.log(userId)
+
   const isDelosc = useMemo(() => {
     const newDesloc = desloc?.find(
       (des) => des.idCondutor === userId && des.observacao === '',

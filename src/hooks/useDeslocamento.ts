@@ -8,9 +8,7 @@ export function useDeslocamento(id: number) {
     fetcher,
   )
 
-  const deslocamentoFilterClient = data?.filter(
-    (des) => des.idCliente === id && des.checkList !== 'pendente',
-  )
+  const deslocamentoFilterClient = data?.filter((des) => des.idCliente === id)
 
   return { deslocamentoFilterClient, data, mutate }
 }
