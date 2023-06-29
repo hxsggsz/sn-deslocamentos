@@ -14,7 +14,9 @@ export const getStaticProps: GetStaticProps = async () => {
     const { data } = await axios.get(
       'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome',
     )
-    states = data
+    if (data) {
+      states = data
+    }
   } catch (error) {
     console.log(error)
   }
