@@ -9,9 +9,14 @@ export default function Signup({ states }: IUF) {
 
 // os UFs são os mesmos e nunca irão mudar e não dependem de outros inputs para serem renderizados, por isso estou passando ele via getStaticProps que irá rodar esse código durante a build do site
 export const getServerSideProps: GetServerSideProps = async () => {
-  const statesResponse = await axios.get(
-    'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome',
-  )
-  const states = statesResponse.data
+  let states
+  try {
+    const { data } = await axios.get(
+      'https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome',
+    )
+    states = data
+  } catch (error) {
+    console.log(error)
+  }
   return { props: { states } }
 }
