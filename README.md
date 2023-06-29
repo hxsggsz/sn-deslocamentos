@@ -1,7 +1,5 @@
 <div id="readme-top" align="center">
-  <a href="https://make-decisions.netlify.app/" target="_blank">
   <img src="https://secretarianaty.com/wp-content/uploads/2022/10/cropped-WhatsApp-Image-2022-10-13-at-14.18.14-1.png"/>
-</a>
   
   
   
@@ -11,15 +9,12 @@
 <a href="#feito-com">👷🏻‍♂️ Feito com</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
  <a href="#funcionalidades-do-projeto">🔨 Funcionalidades do projeto</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     <a href="#acesso-ao-projeto">🔍 Como baixar o projeto localmente</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-    <a href="#acesso-ao-projeto">📂 acesso ao projeto</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
     <a href="#autor">👦🏻 Autor</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p>
 
 <div align="center">
 <img src="http://img.shields.io/static/v1?label=STATUS&message=Concluido&color=GREEN&style=for-the-badge"/>
 </div>
-  
-  <a href="https://make-decisions.netlify.app/" target="_blank">Confira aqui o site no ar!</a> <br>
   
 <h1 id="descricao-do-projeto"> ✏ Descrição do projeto<h1>
 
@@ -33,10 +28,6 @@ Um chalenge para a empresa Secretaria Naty onde foi feito um website de deslocam
 
 Um website inspirado em aplicativos de transporte, nesse projeto e possível cadastrar um usuário, um condutor e seus veículos e também iniciar e finlizar o deslocamento.
 
-<h1 id="acesso-ao-projeto"> 📂 Acesso ao projeto<h1>
-
-você pode utilizar o projeto <a href="https://make-decisions.netlify.app/" target="_blank">aqui</a>
-
 <h1 id="projeto local">🔍 Como baixar o projeto localmente</h1>
 
 Faça um Fork do repositório
@@ -47,7 +38,7 @@ Clone o novo repositório na sua maquina local utilizando o comando git clone ht
 
 ![image](https://github.com/hxsggsz/sn-deslocamentos/assets/103784814/2e8d5302-f356-4fd2-a6a0-f4b22b901493)
 
-BAixe a pasta "node_modules" com o comando "npm install" e pronto, você pode iniciar o site localmente com o comando "npm run dev" e ver o resultado no link "http://localhost:3000"
+Baixe a pasta "node_modules" com o comando "npm install" e pronto, você pode iniciar o site localmente com o comando "npm run dev" e ver o resultado no link "http://localhost:3000"
 
 <h1 id="autor"> 👦🏻 Autor<h1>
 
